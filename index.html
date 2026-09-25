@@ -5,8 +5,40 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>My Savings</title>
 <style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;color:#fff4e5;font-family:"Yu Gothic",sans-serif;background:radial-gradient(circle at 75% 10%,#ffbd72 0,transparent 25%),linear-gradient(135deg,#29150b,#8b3b12 48%,#ef7625)}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.3;background-image:radial-gradient(#fff 1px,transparent 2px);background-size:180px 150px}.app{display:flex;min-height:100vh;position:relative}.side{width:220px;background:#21120bd9;padding:30px 18px;border-right:1px solid #ffc08a55;position:sticky;top:0;height:100vh}.brand{font:28px Georgia,serif;margin:5px 12px 35px}.brand small{display:block;font:11px Georgia,serif;letter-spacing:3px;opacity:.65;margin-top:7px}.nav{display:grid;gap:8px}.nav button{border:0;background:transparent;color:#ffe9d4;text-align:left;padding:13px;border-radius:13px;font-size:15px}.nav button:hover{background:#f47b20}.quote{margin:55px 12px;color:#ffc08a;font:18px cursive;line-height:1.7}.main{flex:1;width:100%;max-width:1450px;margin:auto;padding:38px clamp(15px,4vw,55px)}.hero{padding:34px 40px;min-height:220px;border:1px solid #ffd6b188;border-radius:28px;background:linear-gradient(90deg,#1e100be8,#8e3d13a8),radial-gradient(circle at 80% 35%,#ffbd72,transparent 28%);box-shadow:0 18px 45px #42170555}.kicker{font-size:12px;letter-spacing:4px;opacity:.7}.hero h1{font:italic 64px Georgia,serif;margin:12px 0}.hero p{line-height:1.8;color:#ffe2c5}.toolbar{display:flex;justify-content:space-between;align-items:center;margin:24px 2px 14px}.title{font:26px Georgia,serif}.add,.goal-add{border:0;border-radius:10px;background:#f47b20;color:white;padding:10px 15px;cursor:pointer}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:17px}.card{background:#21140dc7;border:1px solid #ffd6b177;border-radius:20px;overflow:hidden;box-shadow:0 18px 45px #42170555}.pic{height:140px;background:linear-gradient(135deg,#ffbd72,#632b13);display:flex;align-items:center;justify-content:center;font-size:42px}.pic img{width:100%;height:100%;object-fit:cover}.body{padding:17px}.head{display:flex;justify-content:space-between;align-items:center}.head h3{margin:0;font-size:18px}.more{border:0;background:#ffffff18;color:white;border-radius:50%;width:30px;height:30px}.amount{font:34px Georgia,serif;color:#ffd7ae;margin:14px 0}.bar{height:9px;background:#593726;border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#ff7720,#ffc07a)}.meta{display:flex;justify-content:space-between;font-size:12px;color:#ffd5b2;margin-top:7px}.actions{display:flex;gap:7px;margin-top:13px}.actions button{flex:1;border:1px solid #ffcb9c44;background:#ffffff0d;color:#ffe9d4;border-radius:9px;padding:8px}.panels{display:grid;grid-template-columns:1.1fr 1fr .9fr;gap:17px;margin-top:20px}.panel{background:#fff4e5f2;color:#432416;border-radius:20px;padding:20px;min-height:205px}.panel h2{font:22px Georgia,serif;margin:0 0 14px}.goal{display:flex;gap:7px;margin:8px 0}.goal input,.memo{width:100%;border:1px solid #dfbd9e;background:#fffaf4;border-radius:10px;padding:10px;color:#432416;font:inherit}.goal button{border:0;background:transparent;color:#b45c20}.memo{min-height:130px;resize:vertical}.month{display:flex;justify-content:space-between;margin-bottom:10px}.month button{border:0;background:#f4d3ba;border-radius:7px;padding:5px 10px}.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:12px}.cal b{opacity:.5}.day{padding:6px 2px;border-radius:7px;min-height:30px;border:0;background:transparent;color:inherit;cursor:pointer;position:relative}.day:hover{background:#f6dfcf}.today{background:#f47b20;color:white}.day.starred:after{content:"★";display:block;color:#f47b20;font-size:12px;line-height:10px}.today.starred:after{color:#fff}.modalbg{display:none;position:fixed;inset:0;background:#0009;align-items:center;justify-content:center;padding:20px;z-index:5}.modalbg.show{display:flex}.modal{background:#fff4e5;color:#432416;width:min(500px,100%);padding:23px;border-radius:20px}.field{margin:11px 0}.field label{display:block;font-size:13px;margin-bottom:5px}.field input{width:100%;padding:10px;border:1px solid #dfbd9e;border-radius:9px}.modal button{padding:10px;border:0;border-radius:9px}.modalfoot{display:flex;gap:8px;margin-top:16px}.modalfoot button{flex:1}.save{background:#f47b20;color:white}.cancel{background:#ead8c8}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:#fff4e5;font-family:"Yu Gothic",sans-serif;background:radial-gradient(circle at 75% 10%,#ffbd72 0,transparent 25%),linear-gradient(135deg,#29150b,#8b3b12 48%,#ef7625)}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.3;background-image:radial-gradient(#fff 1px,transparent 2px);background-size:180px 150px}.app{display:flex;min-height:100vh;position:relative}.side{width:220px;background:#21120bd9;padding:30px 18px;border-right:1px solid #ffc08a55;position:sticky;top:0;height:100vh}.brand{font:28px Georgia,serif;margin:5px 12px 35px}.brand small{display:block;font:11px Georgia,serif;letter-spacing:3px;opacity:.65;margin-top:7px}.nav{display:grid;gap:8px}.nav button{border:0;background:transparent;color:#ffe9d4;text-align:left;padding:13px;border-radius:13px;font-size:15px}.nav button:hover{background:#f47b20}.quote{margin:55px 12px;color:#ffc08a;font:18px cursive;line-height:1.7}.main{flex:1;width:100%;max-width:1450px;margin:auto;padding:38px clamp(15px,4vw,55px)}.hero{padding:20px 20px 12px;min-height:105px;text-align:center;background:transparent;border:0;border-radius:0;box-shadow:none}.kicker{font-size:12px;letter-spacing:4px;opacity:.7}.hero h1{font:italic 64px Georgia,serif;margin:12px 0}.hero p{line-height:1.8;color:#ffe2c5}.toolbar{display:flex;justify-content:space-between;align-items:center;margin:0 2px 10px}.title{font:26px Georgia,serif}.add,.goal-add{border:0;border-radius:10px;background:#f47b20;color:white;padding:10px 15px;cursor:pointer}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:17px}.card{background:#21140dc7;border:1px solid #ffd6b177;border-radius:20px;overflow:hidden;box-shadow:0 18px 45px #42170555}.pic{height:140px;background:linear-gradient(135deg,#ffbd72,#632b13);display:flex;align-items:center;justify-content:center;font-size:42px}.pic img{width:100%;height:100%;object-fit:cover}.body{padding:17px}.head{display:flex;justify-content:space-between;align-items:center}.head h3{margin:0;font-size:18px}.more{border:0;background:#ffffff18;color:white;border-radius:50%;width:30px;height:30px}.amount{font:34px Georgia,serif;color:#ffd7ae;margin:14px 0}.bar{height:9px;background:#593726;border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#ff7720,#ffc07a)}.meta{display:flex;justify-content:space-between;font-size:12px;color:#ffd5b2;margin-top:7px}.actions{display:flex;gap:7px;margin-top:13px}.actions button{flex:1;border:1px solid #ffcb9c44;background:#ffffff0d;color:#ffe9d4;border-radius:9px;padding:8px}.panels{display:grid;grid-template-columns:1.1fr 1fr .9fr;gap:17px;margin-top:20px}
+
+.history-panel{display:grid;grid-template-columns:1fr 1.6fr;gap:18px;margin-top:20px}
+.daily-panel{margin-top:20px;background:#fff4e5f2;color:#432416;border-radius:20px;padding:20px;box-shadow:0 18px 45px #42170555}
+.daily-header{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.daily-kicker{font-size:11px;letter-spacing:3px;color:#c66a29}
+.daily-header h2{font:24px Georgia,serif;margin:5px 0}
+.daily-header p{margin:0;color:#8d6248;font-size:12px}
+.daily-date{font:20px Georgia,serif;color:#d96418;white-space:nowrap}
+.daily-content{display:grid;grid-template-columns:minmax(220px,1fr) 220px;gap:18px;margin-top:15px}
+.daily-image{min-height:300px;border-radius:16px;background:linear-gradient(135deg,#ffbd72,#6a2d13);display:flex;align-items:center;justify-content:center;overflow:hidden;color:#fff;font-size:55px}
+.daily-image img{width:100%;height:100%;max-height:440px;object-fit:contain;background:#2b170d}
+.daily-controls{display:flex;flex-direction:column;gap:9px;justify-content:center}
+.daily-controls button{border:1px solid #e2bea0;background:#fffaf4;color:#6b3b22;border-radius:10px;padding:11px;cursor:pointer}
+.daily-controls .daily-upload{background:#f47b20;color:white;border-color:#f47b20;font-weight:700}
+.daily-controls .daily-remove{font-size:12px;color:#a45a31}
+
+.history-summary{background:linear-gradient(135deg,#2b160c,#9b4618);border:1px solid #ffd6b177;border-radius:20px;padding:24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 18px 45px #42170555}
+.history-kicker{font-size:11px;letter-spacing:3px;color:#ffc08a}
+.history-total{font:42px Georgia,serif;color:#ffd7ae;margin:7px 0}
+.history-sub{font-size:12px;color:#ffe0c4}
+.history-icon{font-size:54px;color:#ffb46d88}
+.history-list-wrap{background:#fff4e5f2;color:#432416;border-radius:20px;padding:20px;min-height:150px}
+.history-title{font:22px Georgia,serif;margin-bottom:10px}
+.history-list{display:grid;gap:7px;max-height:210px;overflow:auto}
+.history-row{display:grid;grid-template-columns:78px 1fr auto;gap:10px;align-items:center;padding:9px 10px;border-radius:10px;background:#fffaf4;border:1px solid #ead3bd}
+.history-date{font-size:11px;color:#9a6a4a}
+.history-name{font-size:13px}
+.history-amount{font-weight:700;color:#d96418}
+.history-empty{font-size:13px;color:#9a6a4a;padding:8px 0}
+.panel{background:#fff4e5f2;color:#432416;border-radius:20px;padding:20px;min-height:205px}.panel h2{font:22px Georgia,serif;margin:0 0 14px}.goal{display:flex;gap:7px;margin:8px 0}.goal input,.memo{width:100%;border:1px solid #dfbd9e;background:#fffaf4;border-radius:10px;padding:10px;color:#432416;font:inherit}.goal button{border:0;background:transparent;color:#b45c20}.memo{min-height:130px;resize:vertical}.month{display:flex;justify-content:space-between;margin-bottom:10px}.month button{border:0;background:#f4d3ba;border-radius:7px;padding:5px 10px}.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:12px}.cal b{opacity:.5}.day{padding:6px 2px;border-radius:7px;min-height:30px;border:0;background:transparent;color:inherit;cursor:pointer;position:relative}.day:hover{background:#f6dfcf}.today{background:#f47b20;color:white}.day.starred:after{content:"★";display:block;color:#f47b20;font-size:12px;line-height:10px}.today.starred:after{color:#fff}.modalbg{display:none;position:fixed;inset:0;background:#0009;align-items:center;justify-content:center;padding:20px;z-index:5}.modalbg.show{display:flex}.modal{background:#fff4e5;color:#432416;width:min(500px,100%);padding:23px;border-radius:20px}.field{margin:11px 0}.field label{display:block;font-size:13px;margin-bottom:5px}.field input{width:100%;padding:10px;border:1px solid #dfbd9e;border-radius:9px}.modal button{padding:10px;border:0;border-radius:9px}.modalfoot{display:flex;gap:8px;margin-top:16px}.modalfoot button{flex:1}.save{background:#f47b20;color:white}.cancel{background:#ead8c8}
 @media(max-width:900px){.side{width:175px}.panels{grid-template-columns:1fr 1fr}.hero h1{font-size:50px}}
+
+@media(max-width:650px){.history-panel{grid-template-columns:1fr}.daily-header{align-items:flex-start;flex-direction:column}.daily-content{grid-template-columns:1fr}.daily-image{min-height:260px}.daily-controls{display:grid;grid-template-columns:1fr 1.2fr 1fr}.daily-remove{grid-column:1/-1}}
 @media(max-width:650px){.app{display:block}.side{width:100%;height:auto;position:relative;padding:16px}.brand{margin:3px 5px 14px}.nav{grid-template-columns:repeat(5,1fr)}.nav button{text-align:center;font-size:11px;padding:8px 3px}.quote{display:none}.main{padding:15px 12px}.hero{padding:25px 20px}.hero h1{font-size:43px}.panels{grid-template-columns:1fr}}
 </style>
 </head>
@@ -16,9 +48,55 @@
 <main class="main">
 <section class="hero"><div class="kicker">MY SAVINGS</div><h1>My Savings</h1></section>
 <div class="toolbar"><div class="title">貯金項目</div><button class="add" onclick="openModal()">＋ 貯金項目を追加</button></div>
-<div id="cards" class="cards"></div>
+<div id="cards" class="cards"></div><section class="advance-panel">
+  <div class="advance-head">
+    <div>
+      <div class="advance-kicker">SEPARATE</div>
+      <h2>立替</h2>
+      <p>あとで戻ってくるお金は、貯金と分けて管理。</p>
+    </div>
+    <button type="button" class="add" onclick="addAdvance()">＋ 立替を追加</button>
+  </div>
+  <div id="advanceList" class="advance-list"></div>
+  <div class="advance-total">立替合計 <strong id="advanceTotal">¥ 0</strong></div>
+</section>
+
+<section class="history-panel">
+  <div class="history-summary">
+    <div>
+      <div class="history-kicker">TOTAL SAVED</div>
+      <div id="totalSaved" class="history-total">¥ 0</div>
+      <div class="history-sub">これまでに貯めた合計</div>
+    </div>
+    <div class="history-icon">✦</div>
+  </div>
+  <div class="history-list-wrap">
+    <div class="history-title">貯金履歴</div>
+    <div id="historyList" class="history-list"></div>
+  </div>
+</section>
+
+<section class="daily-panel">
+  <div class="daily-header">
+    <div>
+      <div class="daily-kicker">DAILY COLLECTION</div>
+      <h2>日めくりギャラリー</h2>
+      <p>その日の推し画像を1枚ずつ残せるよ。</p>
+    </div>
+    <div class="daily-date" id="dailyDate"></div>
+  </div>
+  <div class="daily-content">
+    <div class="daily-image" id="dailyImage"><span>✦</span></div>
+    <div class="daily-controls">
+      <button type="button" onclick="dailyPrev()">‹ 前の日</button>
+      <button type="button" class="daily-upload" onclick="pickDailyImage()">画像を変更</button>
+      <button type="button" onclick="dailyNext()">次の日 ›</button>
+      <input id="dailyFile" type="file" accept="image/*" hidden>
+      <button type="button" class="daily-remove" onclick="removeDailyImage()">この日の画像を削除</button>
+    </div>
+  </div>
+</section>
 <div class="panels">
-<section class="panel"><h2>✦ GOAL</h2><div id="goals"></div><button class="goal-add" onclick="addGoal()">＋ ゴールを追加</button></section>
 <section class="panel"><h2>✎ MEMO</h2><textarea id="memo" class="memo" placeholder="自由にメモを書いてね…"></textarea></section>
 <section class="panel"><h2>◷ CALENDAR</h2><div class="month"><button onclick="month(-1)">‹</button><b id="mt"></b><button onclick="month(1)">›</button></div><div id="cal" class="cal"></div></section>
 </div>
@@ -32,18 +110,52 @@
 </div></div>
 <script>
 const KEY="natchan-v1";let s=JSON.parse(localStorage.getItem(KEY)||"null")||{stars:[],items:[{id:1,name:"貯金",target:100000,saved:0,image:""}],goals:["行きたい場所に行く","欲しいものを買う"],memo:"",y:new Date().getFullYear(),m:new Date().getMonth()},edit=null;
-s.stars=s.stars||[]; const $=id=>document.getElementById(id);const esc=x=>String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+s.stars=s.stars||[]; s.history=s.history||[]; s; s.dailyDate=s.dailyDate||new Date().toISOString().slice(0,10); const $=id=>document.getElementById(id);const esc=x=>String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 function persist(){localStorage.setItem(KEY,JSON.stringify(s));render()}
 function render(){ $("cards").innerHTML=s.items.map(x=>{let p=x.target?Math.min(100,Math.round(x.saved/x.target*100)):0;return `<article class="card"><div class="pic">${x.image?`<img src="${x.image}">`:"✦"}</div><div class="body"><div class="head"><h3>${esc(x.name)}</h3><button class="more" onclick="openModal(${x.id})">⋯</button></div><div class="amount">¥ ${x.saved.toLocaleString()}</div><div class="bar"><div class="fill" style="width:${p}%"></div></div><div class="meta"><span>${p}%</span><span>目標 ¥ ${x.target.toLocaleString()}</span></div><div class="actions"><button onclick="addMoney(${x.id})">＋ 貯金する</button><button onclick="del(${x.id})">削除</button></div></div></article>`}).join("");
-$("goals").innerHTML=s.goals.map((g,i)=>`<div class="goal"><input value="${esc(g)}" onchange="s.goals[${i}]=this.value;persist()"><button onclick="s.goals.splice(${i},1);persist()">×</button></div>`).join("");$("memo").value=s.memo;calendar()}
+$("goals").innerHTML=s.goals.map((g,i)=>`<div class="goal"><input value="${esc(g)}" onchange="s.goals[${i}]=this.value;persist()"><button onclick="s.goals.splice(${i},1);persist()">×</button></div>`).join("");
+const total=s.items.reduce((sum,x)=>sum+(Number(x.saved)||0),0);
+$("totalSaved").textContent="¥ "+total.toLocaleString();
+const hist=(s.history||[]).slice().reverse();
+$("historyList").innerHTML=hist.length?hist.map(h=>`<div class="history-row"><span class="history-date">${esc(h.date)}</span><span class="history-name">${esc(h.name)}</span><span class="history-amount">＋¥ ${Number(h.amount).toLocaleString()}</span></div>`).join(""):`<div class="history-empty">まだ貯金履歴はないよ。</div>`;
+persist()"><span class="advance-amount">¥ ${Number(a.amount).toLocaleString()}</span><button type="button" onclick="removeAdvance(${i})">×</button></div>`).join(""):`<div class="history-empty">まだ立替はないよ。</div>`;$("advanceTotal").textContent="¥ "+at.reduce((sum,a)=>sum+(Number(a.amount)||0),0).toLocaleString();
+$("memo").value=s.memo;renderDaily();calendar()}
 function openModal(id=null){edit=id;let x=id?s.items.find(a=>a.id===id):null;$("modalTitle").textContent=x?"貯金項目を編集":"貯金項目を追加";$("name").value=x?.name||"";$("target").value=x?.target??"";$("saved").value=x?.saved??"";$("file").value="";$("modalbg").classList.add("show")}
 function closeModal(){$("modalbg").classList.remove("show")}
 function saveItem(){let name=$("name").value.trim()||"貯金",target=+($("target").value)||0,saved=+($("saved").value)||0,f=$("file").files[0];let done=img=>{if(edit){let x=s.items.find(a=>a.id===edit);Object.assign(x,{name,target,saved});if(img!==null)x.image=img}else s.items.push({id:Date.now(),name,target,saved,image:img||""});closeModal();persist()};if(f){let r=new FileReader;r.onload=()=>done(r.result);r.readAsDataURL(f)}else done(null)}
-function addMoney(id){let x=s.items.find(a=>a.id===id),v=prompt(x.name+" にいくら貯金する？","1000");if(v===null)return;v=+v;if(v<0||!Number.isFinite(v))return alert("0以上の数字を入れてね");x.saved+=v;persist()}
+function addAdvance(){let name=prompt("立替の内容","交通費");if(name===null)return;name=name.trim()||"立替";let v=prompt("金額（円）","1000");if(v===null)return;let amount=Number(v);if(!Number.isFinite(amount)||amount<0)return alert("0以上の数字を入れてね");s);persist()}
+function removeAdvance(i){if(confirm("この立替を削除する？")){s.advances.splice(i,1);persist()}}
+function addMoney(id){let x=s.items.find(a=>a.id===id),v=prompt(x.name+" にいくら貯金する？","1000");if(v===null)return;v=+v;if(v<0||!Number.isFinite(v))return alert("0以上の数字を入れてね");x.saved+=v;s.history=s.history||[];s.history.push({date:new Date().toLocaleDateString("ja-JP"),name:x.name,amount:v});persist()}
 function del(id){let x=s.items.find(a=>a.id===id);if(confirm("「"+x.name+"」を削除する？")){s.items=s.items.filter(a=>a.id!==id);persist()}}
 function addGoal(){s.goals.push("新しいゴール");persist()}
 $("memo").addEventListener("input",e=>{s.memo=e.target.value;localStorage.setItem(KEY,JSON.stringify(s))});
 function month(n){s.m+=n;if(s.m<0){s.m=11;s.y--}if(s.m>11){s.m=0;s.y++}persist()}
+
+function renderDaily(){
+  const key=s.dailyDate;
+  const d=new Date(key+"T00:00:00");
+  $("dailyDate").textContent=`${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,"0")}.${String(d.getDate()).padStart(2,"0")}`;
+  const src=s.dailyImages[key];
+  $("dailyImage").innerHTML=src?`<img src="${src}" alt="${key}の画像">`:"<span>✦</span>";
+}
+function pickDailyImage(){$("dailyFile").click()}
+$("dailyFile").addEventListener("change",e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{s.dailyImages[s.dailyDate]=r.result;persist()};
+  r.readAsDataURL(f);
+  e.target.value="";
+});
+function dailyMove(n){
+  const d=new Date(s.dailyDate+"T00:00:00"); d.setDate(d.getDate()+n);
+  s.dailyDate=d.toISOString().slice(0,10); persist();
+}
+function dailyPrev(){dailyMove(-1)}
+function dailyNext(){dailyMove(1)}
+function removeDailyImage(){
+  if(!s.dailyImages[s.dailyDate])return;
+  if(confirm("この日の画像を削除する？")){delete s.dailyImages[s.dailyDate];persist()}
+}
 function calendar(){let y=s.y,m=s.m,first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate(),t=new Date; $("mt").textContent=y+"."+String(m+1).padStart(2,"0");let z=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(x=>"<b>"+x+"</b>").join("");for(let i=0;i<first;i++)z+="<span></span>";for(let d=1;d<=days;d++){let q=d==t.getDate()&&m==t.getMonth()&&y==t.getFullYear();let key=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;let starred=(s.stars||[]).includes(key);z+=`<button type="button" class="day ${q?"today ":""}${starred?"starred":""}" data-date="${key}" aria-label="${key}${starred?" オレンジの星付き":""}">${d}</button>`}$("cal").innerHTML=z;$("cal").querySelectorAll(".day").forEach(btn=>btn.addEventListener("click",()=>{let key=btn.dataset.date;s.stars=s.stars||[];if(s.stars.includes(key))s.stars=s.stars.filter(x=>x!==key);else s.stars.push(key);persist()}))}
 render();
 </script>

@@ -38,8 +38,8 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;ba
 .panels{display:grid;grid-template-columns:1fr 1fr;gap:17px;margin-top:20px}.panel{background:#fff4e5f2;color:#432416;border-radius:20px;padding:20px;min-height:205px}.panel h2{font:22px Georgia,serif;margin:0 0 14px}
 .memo{width:100%;min-height:130px;resize:vertical;border:1px solid #dfbd9e;background:#fffaf4;border-radius:10px;padding:10px;color:#432416;font:inherit}
 .month{display:flex;justify-content:space-between;margin-bottom:10px}.month button{border:0;background:#f4d3ba;border-radius:7px;padding:5px 10px}.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:12px}.cal b{opacity:.5}
-.day{padding:6px 2px;border-radius:7px;min-height:30px;border:0;background:transparent;color:inherit;cursor:pointer;position:relative}.day:hover{background:#f6dfcf}.today{background:#f47b20;color:white}.day.starred:after{content:"★";display:block;color:#f47b20;font-size:12px;line-height:10px}.today.starred:after{color:#fff}
-.modalbg{display:none;position:fixed;inset:0;background:#0009;align-items:center;justify-content:center;padding:20px;z-index:5}.modalbg.show{display:flex}.modal{background:#fff4e5;color:#432416;width:min(500px,100%);padding:23px;border-radius:20px}.field{margin:11px 0}.field label{display:block;font-size:13px;margin-bottom:5px}.field input{width:100%;padding:10px;border:1px solid #dfbd9e;border-radius:9px}.modal button{padding:10px;border:0;border-radius:9px}.modalfoot{display:flex;gap:8px;margin-top:16px}.modalfoot button{flex:1}.save{background:#f47b20;color:white}.cancel{background:#ead8c8}
+.day{padding:6px 2px;border-radius:7px;min-height:30px;border:0;background:transparent;color:inherit;cursor:pointer;position:relative}.day:hover{background:#f6dfcf}.today{background:#f47b20;color:white}.day.starred:after{content:"★";display:block;color:#ff8a2b;font-size:15px;line-height:10px;text-shadow:0 0 4px #ff9b52,0 0 9px #ff7a1a,0 0 14px #ffb36b;animation:starGlow 1.3s ease-in-out infinite alternate}.today.starred:after{color:#fff;text-shadow:0 0 4px #fff,0 0 9px #ffd6b0,0 0 14px #ff9b52}@keyframes starGlow{from{transform:scale(1);opacity:.85}to{transform:scale(1.18);opacity:1}}@media (prefers-reduced-motion:reduce){.day.starred:after{animation:none}}
+.modalbg{display:none;position:fixed;inset:0;background:#0009;align-items:center;justify-content:center;padding:20px;z-index:5}.modalbg.show{display:flex}.modal{background:#fff4e5;color:#432416;width:min(500px,100%);padding:23px;border-radius:20px}.field{margin:11px 0}.field label{display:block;font-size:13px;margin-bottom:5px}.field input{width:100%;padding:10px;border:1px solid #dfbd9e;border-radius:9px}.modal button{padding:10px;border:0;border-radius:9px}.modalfoot{display:flex;gap:8px;margin-top:16px}.modalfoot button{flex:1}.delete-modal{flex:0 0 auto!important}.save{background:#f47b20;color:white}.cancel{background:#ead8c8}
 @media(max-width:650px){.main{padding:12px}.hero h1{font-size:43px}.history-panel,.daily-content,.panels{grid-template-columns:1fr}.daily-header{align-items:flex-start;flex-direction:column}.daily-controls{display:grid;grid-template-columns:1fr 1.2fr 1fr}.daily-remove{grid-column:1/-1}}
 </style>
 </head>
@@ -73,19 +73,20 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;ba
 <div class="field"><label>目標金額（円）</label><input id="target" type="number" min="0"></div>
 <div class="field"><label>現在の貯金額（円）</label><input id="saved" type="number" min="0"></div>
 <div class="field"><label>画像</label><input id="file" type="file" accept="image/*"></div>
-<div class="modalfoot"><button class="cancel" onclick="closeModal()">キャンセル</button><button class="save" onclick="saveItem()">保存</button></div>
+<div class="modalfoot"><button id="deleteItemBtn" class="delete-modal" type="button" onclick="deleteEditingItem()" style="display:none;background:#ead0c4;color:#8b2f1c;">項目を消去</button><button class="cancel" type="button" onclick="closeModal()">キャンセル</button><button class="save" type="button" onclick="saveItem()">保存</button></div>
 </div></div>
 
 <script>
 const KEY="natchan-v1";
 let s=JSON.parse(localStorage.getItem(KEY)||"null")||{stars:[],items:[{id:1,name:"貯金",target:100000,saved:0,image:""}],memo:"",y:new Date().getFullYear(),m:new Date().getMonth(),history:[],dailyDate:new Date().toISOString().slice(0,10),dailyImages:{}};
-s.stars=s.stars||[];s.history=s.history||[];s.dailyImages=s.dailyImages||{};
+if(localStorage.getItem(KEY+"-history-reset-v2")!=="1"){s.history=[];localStorage.setItem(KEY+"-history-reset-v2","1");localStorage.setItem(KEY,JSON.stringify(s));}
+s.stars=s.stars||[];s.history=[];s.dailyImages=s.dailyImages||{};
 let edit=null;
 const $=id=>document.getElementById(id);
 const esc=x=>String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 function persist(){localStorage.setItem(KEY,JSON.stringify(s));render()}
 function render(){
-$("cards").innerHTML=s.items.map(x=>{let p=x.target?Math.min(100,Math.round(x.saved/x.target*100)):0;return `<article class="card"><div class="pic">${x.image?`<img src="${x.image}" alt="">`:"✦"}</div><div class="body"><div class="head"><h3>${esc(x.name)}</h3><button class="more" onclick="openModal(${x.id})">⋯</button></div><div class="amount">¥ ${Number(x.saved).toLocaleString()}</div><div class="bar"><div class="fill" style="width:${p}%"></div></div><div class="meta"><span>${p}%</span><span>目標 ¥ ${Number(x.target).toLocaleString()}</span></div><div class="actions"><button onclick="addMoney(${x.id})">＋ 貯金する</button><button onclick="delItem(${x.id})">削除</button></div></div></article>`}).join("");
+$("cards").innerHTML=s.items.map(x=>{let p=x.target?Math.min(100,Math.round(x.saved/x.target*100)):0;return `<article class="card"><div class="pic">${x.image?`<img src="${x.image}" alt="">`:"✦"}</div><div class="body"><div class="head"><h3>${esc(x.name)}</h3><button class="more" onclick="openModal(${x.id})">⋯</button></div><div class="amount">¥ ${Number(x.saved).toLocaleString()}</div><div class="bar"><div class="fill" style="width:${p}%"></div></div><div class="meta"><span>${p}%</span><span>目標 ¥ ${Number(x.target).toLocaleString()}</span></div><div class="actions"><button type="button" onclick="window.addMoney(${x.id})">＋ 貯金する</button><button type="button" onclick="delItem(${x.id})">削除</button></div></div></article>`}).join("");
 const total=s.items.reduce((sum,x)=>sum+(Number(x.saved)||0),0);$("totalSaved").textContent="¥ "+total.toLocaleString();
 const hist=s.history.slice().reverse();
 if(hist.length){
@@ -95,20 +96,38 @@ if(hist.length){
 }else $("historyList").innerHTML=`<div class="history-empty">まだ貯金履歴はないよ。</div>`;
 $("memo").value=s.memo;renderDaily();calendar();
 }
-function openModal(id=null){edit=id;let x=id?s.items.find(a=>a.id===id):null;$("modalTitle").textContent=x?"貯金項目を編集":"貯金項目を追加";$("name").value=x?.name||"";$("target").value=x?.target??"";$("saved").value=x?.saved??"";$("file").value="";$("modalbg").classList.add("show")}
+function openModal(id=null){edit=id;let x=id?s.items.find(a=>a.id===id):null;$("modalTitle").textContent=x?"貯金項目を編集":"貯金項目を追加";$("name").value=x?.name||"";$("target").value=x?.target??"";$("saved").value=x?.saved??"";$("file").value="";$("deleteItemBtn").style.display=x?"block":"none";$("modalbg").classList.add("show")}
+function deleteEditingItem(){if(edit===null)return;const id=Number(edit);const exists=s.items.some(a=>Number(a.id)===id);if(!exists)return;s.items=s.items.filter(a=>Number(a.id)!==id);edit=null;closeModal();persist()}
 function closeModal(){$("modalbg").classList.remove("show")}
 function saveItem(){let name=$("name").value.trim()||"貯金",target=+($("target").value)||0,saved=+($("saved").value)||0,f=$("file").files[0];let done=img=>{if(edit){let x=s.items.find(a=>a.id===edit);Object.assign(x,{name,target,saved});if(img!==null)x.image=img}else s.items.push({id:Date.now(),name,target,saved,image:img||""});closeModal();persist()};if(f){let r=new FileReader;r.onload=()=>done(r.result);r.readAsDataURL(f)}else done(null)}
 function addMoney(id){let x=s.items.find(a=>a.id===id),v=prompt(x.name+" にいくら貯金する？","1000");if(v===null)return;v=+v;if(v<0||!Number.isFinite(v))return alert("0以上の数字を入れてね");x.saved+=v;s.history.push({date:new Date().toLocaleDateString("ja-JP"),name:x.name,amount:v});persist()}
-function delItem(id){let x=s.items.find(a=>a.id===id);if(confirm("「"+x.name+"」を削除する？")){s.items=s.items.filter(a=>a.id!==id);persist()}}
+function delItem(id){const n=Number(id);const before=s.items.length;s.items=s.items.filter(a=>Number(a.id)!==n);if(s.items.length!==before)persist()}
+window.delItem=delItem;
 $("memo").addEventListener("input",e=>{s.memo=e.target.value;localStorage.setItem(KEY,JSON.stringify(s))});
 function monthMove(n){s.m+=n;if(s.m<0){s.m=11;s.y--}if(s.m>11){s.m=0;s.y++}persist()}
 function calendar(){let y=s.y,m=s.m,first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate(),t=new Date();$("mt").textContent=y+"."+String(m+1).padStart(2,"0");let z=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(x=>"<b>"+x+"</b>").join("");for(let i=0;i<first;i++)z+="<span></span>";for(let d=1;d<=days;d++){let q=d==t.getDate()&&m==t.getMonth()&&y==t.getFullYear(),key=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`,starred=s.stars.includes(key);z+=`<button type="button" class="day ${q?"today ":""}${starred?"starred":""}" data-date="${key}">${d}</button>`}$("cal").innerHTML=z;$("cal").querySelectorAll(".day").forEach(btn=>btn.addEventListener("click",()=>{let key=btn.dataset.date;if(s.stars.includes(key))s.stars=s.stars.filter(x=>x!==key);else s.stars.push(key);persist()}))}
-function validDailyDate(v){return /^\d{4}-\d{2}-\d{2}$/.test(v)&&!Number.isNaN(new Date(v+"T00:00:00").getTime())} function renderDaily(){if(!validDailyDate(s.dailyDate))s.dailyDate=new Date().toISOString().slice(0,10);let d=new Date(s.dailyDate+"T00:00:00");$("dailyDate").textContent=`${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,"0")}.${String(d.getDate()).padStart(2,"0")}`;let src=s.dailyImages[s.dailyDate];$("dailyImage").innerHTML=src?`<img src="${src}" alt="">`:"<span>✦</span>"}
+const DAILY_DB="my-savings-daily-images";
+let dailyDBPromise=null;
+function dailyDB(){if(!dailyDBPromise)dailyDBPromise=new Promise((resolve,reject)=>{const r=indexedDB.open(DAILY_DB,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains("images"))r.result.createObjectStore("images")};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});return dailyDBPromise}
+async function getDailyImage(key){try{const db=await dailyDB();return await new Promise((res,rej)=>{const q=db.transaction("images","readonly").objectStore("images").get(key);q.onsuccess=()=>res(q.result||null);q.onerror=()=>rej(q.error)})}catch(e){return s.dailyImages[key]||null}}
+async function setDailyImage(key,file){const db=await dailyDB();return new Promise((res,rej)=>{const q=db.transaction("images","readwrite").objectStore("images").put(file,key);q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}
+async function deleteDailyImage(key){try{const db=await dailyDB();await new Promise((res,rej)=>{const q=db.transaction("images","readwrite").objectStore("images").delete(key);q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}catch(e){delete s.dailyImages[key]}}
+function validDailyDate(v){return /^\d{4}-\d{2}-\d{2}$/.test(v)&&!Number.isNaN(new Date(v+"T00:00:00").getTime())}
+async function renderDaily(){if(!validDailyDate(s.dailyDate))s.dailyDate=new Date().toISOString().slice(0,10);let d=new Date(s.dailyDate+"T00:00:00");$("dailyDate").textContent=`${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,"0")}.${String(d.getDate()).padStart(2,"0")}`;let src=await getDailyImage(s.dailyDate);if(src instanceof Blob){const url=URL.createObjectURL(src);$("dailyImage").innerHTML=`<img src="${url}" alt="">`}else $("dailyImage").innerHTML=src?`<img src="${src}" alt="">`:`<span>✦</span>`}
 function pickDailyImage(){$("dailyFile").click()}
-$("dailyFile").addEventListener("change",e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader;r.onload=()=>{s.dailyImages[s.dailyDate]=r.result;persist()};r.readAsDataURL(f);e.target.value=""});
-function dailyMove(n){let d=new Date(s.dailyDate+"T00:00:00");d.setDate(d.getDate()+n);s.dailyDate=d.toISOString().slice(0,10);persist()}
+$("dailyFile").addEventListener("change",async e=>{let f=e.target.files[0];if(!f)return;try{await setDailyImage(s.dailyDate,f);renderDaily()}catch(err){alert("画像を保存できなかったよ。端末の保存容量を確認してね。")}e.target.value=""});
+function dailyMove(n){
+  let parts=(s.dailyDate||"").split("-").map(Number);
+  if(parts.length!==3||parts.some(Number.isNaN)){let now=new Date();parts=[now.getFullYear(),now.getMonth()+1,now.getDate()];}
+  let d=new Date(parts[0],parts[1]-1,parts[2]);
+  d.setDate(d.getDate()+n);
+  const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  s.dailyDate=key;
+  localStorage.setItem(KEY,JSON.stringify(s));
+  renderDaily();
+}
 function dailyPrev(){dailyMove(-1)}function dailyNext(){dailyMove(1)}
-function removeDailyImage(){if(!s.dailyImages[s.dailyDate])return;if(confirm("この日の画像を削除する？")){delete s.dailyImages[s.dailyDate];persist()}}
+async function removeDailyImage(){if(!await getDailyImage(s.dailyDate))return;if(confirm("この日の画像を削除する？")){await deleteDailyImage(s.dailyDate);renderDaily()}}
 render();
 </script>
 </body>
